@@ -8,3 +8,10 @@
 
 ##Photos:
 ![Image 1](image.jpg)
+
+### Task list for Code
+
+- [X] Add servo compatibiltiy to joystick
+- [X] Make robot go back
+- [ ] Make robot able to turn
+- [ ] Fine tune the servos so that it does't move slightly left
