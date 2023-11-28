@@ -9,16 +9,27 @@ Servo servoRight;
 
 RF24 radio(7, 8); // CE, CSN
 
-const byte address[6] = "00011";
+struct data_package
+{
+  int msg;
+};
+const byte addresses[][6] = {"00011"};
+typedef struct data_package Package;
+Package data;
 
 void setup() {
   Serial.begin(9600);
+  radio.begin();
+  // radio.startListening();
+  radio.setChannel(115);  //115 band above WIFI signals
+  // radio.openReadingPipe(0, address);
+  radio.setPALevel(RF24_PA_MAX);
+  radio.setDataRate( RF24_250KBPS ) ;  //Minimum speed
+
   servoLeft.attach(9);                
   servoRight.attach(10);
-  radio.begin();
-  radio.openReadingPipe(0, address);
-  radio.setPALevel(RF24_PA_MAX);
-  radio.startListening();
+
+  Serial.print("Setup Initialized");
 }
 
 void loop() {
@@ -56,4 +67,30 @@ void turnRight(int time)                // Right turn function
   servoLeft.writeMicroseconds(1700);    // Left wheel counterclockwise
   servoRight.writeMicroseconds(1700);   // Right wheel counterclockwise
   delay(time);                          // Maneuver for time ms
+}
+
+
+void WriteData()
+{
+  radio.stopListening(); //Stop Receiving and start transminitng
+  radio.openWritingPipe(0xF0F0F0F066);//Sends data on this 40-bit address
+  radio.write(&data, sizeof(data));
+  Serial.print("\nSent:");
+  Serial.println(data.msg);
+  delay(300);
+}
+
+void ReadData()
+{
+radio.openReadingPipe(1, 0xF0F0F0F0AA); //Which pipe to read, 40 bit Address
+  radio.startListening(); //Stop Transminting and start Reveicing
+  if ( radio.available())
+  {
+    while (radio.available())
+    {
+      radio.read( &data, sizeof(data) );
+    }
+    Serial.print("\nReceived:");
+    Serial.println(data.msg);
+  }
 }
