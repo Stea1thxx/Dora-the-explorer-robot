@@ -14,6 +14,6 @@
 
 - [X] Add servo compatibiltiy to joystick
 - [X] Make robot go back
-- [ ] Make robot able to turn
-- [ ] Fine tune the servos so that it does't move slightly left
+- [X] Make robot able to turn
+- [ ] Fine tune the servos so that it does't move slightly left: Could maybe set the map to 1350 and 1650? They don't move much beyond those values
 - [ ] Film the robot using OBS and good visuals
