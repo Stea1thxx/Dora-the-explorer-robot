@@ -16,4 +16,4 @@
 - [X] Make robot go back
 - [ ] Make robot able to turn
 - [ ] Fine tune the servos so that it does't move slightly left
-- [X] Film the robot using OBS and good visuals
+- [] Film the robot using OBS and good visuals
