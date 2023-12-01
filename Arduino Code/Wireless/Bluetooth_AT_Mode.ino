@@ -18,3 +18,4 @@ void loop() {
 }
 
 //+ADDR:98D3:31:F5FA95
+//AT+BIND=00,98D3,31,F5FA95
