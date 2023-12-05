@@ -1,6 +1,13 @@
 # Hi and welcome to our Year 2 Group Project Repo!
 
-## Research
+![screenshot](https://github.com/Stea1thxx/Dora-the-explorer-robot/blob/main/img/gifForController.gif)
+
+## Key teams/features:
+* Controller
+  - Button to switch on/off the electromagnet
+  - 2 axis joystick calibrated and mapped to servos to move the robot
+* Wireless
+* Electromagnet/Token
 
 ## Links:
 - [Example 1](https://www.example.com)
@@ -20,3 +27,5 @@
 - [ ] Test robot for movement upon carpet
 - [ ] Make git repo look nice
 - [ ] See before capacitor using oscilloscope
+
+## Research
