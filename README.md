@@ -17,7 +17,7 @@
 - [Markdown Help](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax)
 
 ## Photos:
-![Image 1](image.jpg)
+![Image 1](https://picsum.photos/)
 
 ### Task list for Code
 
