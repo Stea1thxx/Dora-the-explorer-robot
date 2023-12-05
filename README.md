@@ -1,8 +1,9 @@
-# Hi and welcome to our Year 2 Group Project Repo!
+<h4 align="center">Hi and welcome to our Year 2 Group Project Repo!</h4>
 
 <p align="center">
-  <img src="[http://some_place.com/image.png](https://github.com/Stea1thxx/Dora-the-explorer-robot/blob/main/img/gifForController.gif)" />
+  <img src="https://github.com/Stea1thxx/Dora-the-explorer-robot/blob/main/img/gifForController.gif)" />
 </p>
+
 
 
 ![screenshot](https://github.com/Stea1thxx/Dora-the-explorer-robot/blob/main/img/gifForController.gif)
