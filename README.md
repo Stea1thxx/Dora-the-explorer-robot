@@ -17,7 +17,8 @@
 - [Markdown Help](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax)
 
 ## Photos:
-![Image 1](https://picsum.photos/)
+![Link back to a image uploaded onto your git](https://picsum.photos/)
+- "https://github.com/Stea1thxx/Dora-the-explorer-robot/blob/main/img..."
 
 ### Task list for Code
 
