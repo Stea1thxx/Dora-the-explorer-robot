@@ -1,6 +1,6 @@
 <h1 align="center">Hi and welcome to our Year 2 Group Project Repo!</h4>
 
-<p align="center">
+<p align="center"; style="object-fit: cover">
   <img src="https://github.com/Stea1thxx/Dora-the-explorer-robot/blob/main/img/gifForController.gif" />
 </p>
 
