@@ -17,13 +17,13 @@ RF24 radio(7,8);
 const uint64_t pipes[2] = { 0xF0F0F0F0E1LL, 0xF0F0F0F0D2LL };
 
 // The various roles supported by this sketch @X
-typedef enum { role_ping_out = 1, role_pong_back } role_e;
+typedef enum { transmit = 1, recieve } Role;
 
 // The debug-friendly names of those roles @X
-const char* role_friendly_name[] = { "invalid", "Ping out", "Pong back"};
+// const char* role_friendly_name[] = { "invalid", "Ping out", "Pong back"};
 
 // The role of the current running sketch @X
-role_e role = role_pong_back;
+Role role = recieve;
 
 void setup() {
   Serial.begin(57600);
@@ -44,7 +44,7 @@ void setup() {
   // improve reliability
   //radio.setPayloadSize(8);
 
-  if (role == role_ping_out)
+  if (role == transmit)
   {
     radio.openWritingPipe(pipes[0]);
     radio.openReadingPipe(1,pipes[1]);
@@ -64,7 +64,7 @@ void setup() {
 
 void loop() {
   
-  if ( role == role_pong_back )
+  if ( role == recieve )
   {
     // if there is data ready
     if ( radio.available() )
@@ -74,10 +74,10 @@ void loop() {
       bool done = false;
       while (!done)
       {
-        // Fetch the payload, and see if this was the last one.
+        // fetch payload, check if last one
         done = radio.read( &gotLeftRight, sizeof(long) );
 
-        // Spew it
+        // print payload
         printf("Got payload %li...",gotLeftRight);
         
         // extract left and right values:

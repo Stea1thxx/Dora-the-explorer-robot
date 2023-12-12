@@ -12,6 +12,11 @@ int servoLeftPW;
 int servoRightPW;
 long LeftandRight;
 int turning;
+int joystick[3];
+const int magnetButton = 4;
+int buttonState = LOW;
+int lastButtonState = LOW;
+bool magnetState = false;
 
 const int LEFT_BUTTON = 5;
 const int RIGHT_BUTTON = 4;   
@@ -30,21 +35,22 @@ RF24 radio(7,8);
 // pipe addresses - allowing communication between 2 nodes
 const uint64_t pipes[2] = { 0xF0F0F0F0E1LL, 0xF0F0F0F0D2LL };
 
-// The various roles supported by this sketch @X
-typedef enum { role_ping_out = 1, role_pong_back } role_e;
+// what role? 
+typedef enum { transmit = 1, recieve } Role;
 
-// The debug-friendly names of those roles @X
-const char* role_friendly_name[] = { "invalid", "Ping out", "Pong back"};
+// const char* role_friendly_name[] = { "invalid", "Ping out", "Pong back"};
 
-// The role of the current running sketch @X
-role_e role = role_ping_out;
+// Tset the role of this sketch
+Role role = transmit;
 
 
 void setup(void)
 {
+  pinMode(magnetButton, INPUT_PULLUP);
+
   Serial.begin(57600);
   printf_begin();
-  printf("ROLE: %s\n\r",role_friendly_name[role]);
+  printf("ROLE: %s\n\r",role);
 
 
   radio.begin();
@@ -58,7 +64,7 @@ void setup(void)
   // improve reliability
   //radio.setPayloadSize(8);
 
-  if (role == role_ping_out)
+  if (role == transmit)
   {
     radio.openWritingPipe(pipes[0]);
     radio.openReadingPipe(1,pipes[1]);
@@ -84,6 +90,19 @@ void loop(void)
   servoLeftPW = 1500;
   servoRightPW = 1500;
   turning = 0;
+
+  buttonState = digitalRead(magnetButton);
+  if (buttonState == LOW && lastButtonState == HIGH){
+    magnetState = !magnetState;
+
+    if (joystick[2]) {
+      Serial.println("MAGNET ON");
+    } else {
+      Serial.println("MAGNET OFF");
+    }
+  }
+
+  lastButtonState = buttonState;
 
 
   valueY = analogRead(A0); //UP AND DOWN, (VRY) - Yellow wire
@@ -128,28 +147,15 @@ void loop(void)
   // left_currentState = digitalRead(LEFT_BUTTON);
   // right_currentState = digitalRead(RIGHT_BUTTON);
 
-  if (role == role_ping_out)
+  if (role == transmit)
   {
     radio.stopListening();
 
-    // Read joystick values, send them across.  This will block until complete
-    // values[0] = valueY; //UP AND DOWN, (VRY) - Yellow wire (ValueY)
-    // values[1] = valueX; //LEFT and DOWN, (VRX) - Yellow wire (ValueX)
-    // // printf("Now sending %lu..." + String(values[0]) + "and" + String(values[1]));
-    // Serial.print("servoLeftPW: ");
-    // // Serial.println(servoLeftPW);
-    // Serial.print("servoRightPW: ");
-    // Serial.println(servoRightPW);
+
     LeftandRight = (long(servoLeftPW) * 10000) + long(servoRightPW);
     Serial.println("LEFT: "+ String(servoLeftPW));
     Serial.println("RIGHT: "+ String(servoRightPW));
     Serial.println("DEBUG: "+ String(LeftandRight));
-    // Serial.print(LeftandRight);
-    // COMBINED = (String(servoLeftPW) + String(servoRightPW));
-    // values[0] = servoLeftPW;
-    // values[1] = servoRightPW;
-    // Serial.println(values[0]);
-    // Serial.println(values[1]);
     
 
     printf("Now sending %li...",LeftandRight);
